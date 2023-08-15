@@ -134,11 +134,11 @@ class Program
          */
         string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
         string dataFolderPath = Path.Combine(projectDirectory, "sample programs");
-        string filename = "sample2.txt"; 
+        string filename = "sample8.txt"; 
 
         string filePath = Path.Combine(dataFolderPath, filename);
         Console.WriteLine(filePath);
-        Console.ReadLine();
+      //  Console.ReadLine();
         string input = ReadTextFromFile(filePath);
          
         input = ReadTextFromFile(filePath);
