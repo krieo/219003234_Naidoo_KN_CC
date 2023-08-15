@@ -1,0 +1,25 @@
+RECIPE FunctionCallWithArray
+DO
+8
+ METHOD Main() AS INTEGER
+ DO
+ INGREDIENT values[] AS STRING;
+ values[0] = 1;
+ values[1] = 2;
+ values[2] = 3;
+ INGREDIENT i AS INTEGER;
+ I = 0;
+ LOOP WHILE i < 2 DO
+ IF values[i] == 1 THEN
+ @Print("cake");
+ DONE
+ i = i + 1;
+ DONE
+ SHARE 0;
+ DONE
+ METHOD Print(message AS STRING) AS INTEGER
+ DO
+ SPEAK(message);
+ SHARE 0;
+ DONE
+DONE

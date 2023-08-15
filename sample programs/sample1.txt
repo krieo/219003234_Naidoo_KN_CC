@@ -1,20 +1,12 @@
-RECIPE MathOperations
-                    DO
-                    METHOD Main() AS INTEGER
-                    DO
-                    INGREDIENT a AS INTEGER;
-                    INGREDIENT b AS INTEGER;
-                    a = 14;
-                    b = 3;
-                    INGREDIENT sum AS INTEGER;
-                    sum = a + b;
-                    INGREDIENT product AS INTEGER;
-                    product = a * b;
-                    INGREDIENT quotient AS FLOAT;
-                    quotient = a / b;
-                    SPEAK(""Sum: "" + sum);
-                    SPEAK(""Product: "" + product);
-                    SPEAK(""Quotient: "" + quotient);
-                    SHARE 0;
-                    DONE
-                    DONE
+RECIPE HelloWorld
+DO
+ METHOD Main() AS INTEGER
+ DO
+ INGREDIENT name AS STRING;
+ ASK(name);
+ INGREDIENT message AS STRING;
+ message = "Hello, " + name + "!";
+ SPEAK(message);
+ SHARE 0;
+ DONE
+DONE

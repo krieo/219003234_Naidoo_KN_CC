@@ -134,7 +134,7 @@ class Program
          */
         string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
         string dataFolderPath = Path.Combine(projectDirectory, "sample programs");
-        string filename = "sample1.txt"; 
+        string filename = "sample2.txt"; 
 
         string filePath = Path.Combine(dataFolderPath, filename);
         Console.WriteLine(filePath);
