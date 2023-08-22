@@ -1,18 +1,9 @@
-﻿using System;
+﻿using _219003234_Naidoo_KN_CC;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-class Token
-{
-    public string Type { get; }
-    public string Lexeme { get; }
 
-    public Token(string type, string lexeme)
-    {
-        Type = type;
-        Lexeme = lexeme;
-    }
-}
 
 class Scanner
 {
