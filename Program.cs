@@ -22,40 +22,60 @@ class Program
 
     static void Main(string[] args)
     {
-        // string input = "RECIPE HelloWorld DO METHOD Main() AS INTEGER DO SPEAK(\"Hello, World!\"); DONE DONE";
-        /*
-          string input = @"RECIPE MathOperations
-                      DO
-                      METHOD Main() AS INTEGER
-                      DO
-                      INGREDIENT a AS INTEGER;
-                      INGREDIENT b AS INTEGER;
-                      a = 14;
-                      b = 3;
-                      INGREDIENT sum AS INTEGER;
-                      sum = a + b;
-                      INGREDIENT product AS INTEGER;
-                      product = a * b;
-                      INGREDIENT quotient AS FLOAT;
-                      quotient = a / b;
-                      SPEAK(""Sum: "" + sum);
-                      SPEAK(""Product: "" + product);
-                      SPEAK(""Quotient: "" + quotient);
-                      SHARE 0;
-                      DONE
-                      DONE";
-         */
+ 
         string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
         string dataFolderPath = Path.Combine(projectDirectory, "sample programs");
-        string filename = "sample8.txt"; 
+        string filename = "sample8.txt";
+
+        Console.WriteLine("Enter number to load file from 1 to 8:");
+        string fileNumber = Console.ReadLine();
+
+        switch (fileNumber)
+        {
+            case "1":
+                filename = "sample1.txt";
+                break;
+            case "2":
+                filename = "sample2.txt";
+                break;
+            case "3":
+                filename = "sample3.txt";
+                break;
+            case "4":
+                filename = "sample4.txt";
+                break;
+            case "5":
+                filename = "sample5.txt";
+                break;
+            case "6":
+                filename = "sample6.txt";
+                break;
+            case "7":
+                filename = "sample7.txt";
+                break;
+            case "8":
+                filename = "sample8.txt";
+                break;
+            default:
+                filename = "sample8.txt";
+                break;
+        }
+
 
         string filePath = Path.Combine(dataFolderPath, filename);
         Console.WriteLine(filePath);
-      //  Console.ReadLine();
+     
         string input = ReadTextFromFile(filePath);
          
         input = ReadTextFromFile(filePath);
 
+
+        //This prints the contents from the file to the screen
+        Console.WriteLine(input);
+        Console.WriteLine("\n");
+     
+        
+        //This prints out the type and lexeme pairs from the input class
         Scanner scanner = new Scanner();
         List<Token> tokens = scanner.Tokenize(input);
 
