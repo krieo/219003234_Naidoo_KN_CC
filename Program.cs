@@ -3,9 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-
+/// <summary>
+/// This is the main program class that acts as a starting point for the program to run
+/// </summary>
 class Program
 {
+    /// <summary>
+    /// This method is used to read from a file
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
     static string ReadTextFromFile(string filePath)
     {
         try
@@ -20,6 +27,13 @@ class Program
         }
     }
 
+    /// <summary>
+    /// The main method that is the starting point
+    /// This method loads a sample file from 1 to 8 from the sample programs folder
+    /// each file contains one of the example sample programs that is included in the documentation
+    /// it then performs the scanner operations by trying to match input to tokens with there underlying type and lexeme
+    /// </summary>
+    /// <param name="args"></param>
     static void Main(string[] args)
     {
  
