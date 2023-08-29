@@ -41,7 +41,7 @@ class Program
         string dataFolderPath = Path.Combine(projectDirectory, "sample programs");
         string filename = "sample8.txt";
 
-        Console.WriteLine("Enter number to load file from 1 to 8:");
+        Console.WriteLine("Enter number to load file from 1 to 8 (anyother input will result in file 8 being loaded):");
         string fileNumber = Console.ReadLine();
 
         switch (fileNumber)
