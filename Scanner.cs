@@ -93,3 +93,15 @@ namespace _219003234_Naidoo_KN_CC
         }
     }
 }
+
+
+
+
+/*
+ * 
+ so just something cool about how the types matches i used word boundaries in the regular expression represented by "\b"
+how it essentially works is that it says a word must match an entire word and not be apart of another word so for example
+if an input is "INTEGERHELLO" normally this would match the type to an INTEGER and not an ID but because it is part
+of another word it doesn't match it to INTEGER and instead matches it to ID
+ 
+ */
