@@ -13,6 +13,8 @@ namespace _219003234_Naidoo_KN_CC
     public class Scanner
     {
         //This list represents all of the tokens used in the language (type and lexemes)
+        //the items in the list will get matched in order which is why i put the ID at the end of the list
+        //so it looks to match keywords first before the identifier so effectively the list is ordered from highest priority to lowest
         private readonly List<(string TokenType, Regex Pattern)> tokenDefinitions = new List<(string, Regex)>
     {
        ("RECIPE", new Regex(@"\bRECIPE\b")),
@@ -49,14 +51,19 @@ namespace _219003234_Naidoo_KN_CC
         ("STRINGLIT", new Regex(@"""(?:[a-zA-Z0-9~!@#$%^&*`()\[\]_\-+=|{};:<>,.?\\])*")),
         ("INTEGERLIT", new Regex(@"[0-9]+")),
         ("FLOATLIT", new Regex(@"[0-9]*\.[0-9]*")),
-        ("ID", new Regex(@"([a-zA-Z]|[0-9])([a-zA-Z]|[0-9])*")),
         ("BOOLLITTRUE", new Regex(@"\bTRUE\b")),
         ("BOOLLITFALSE", new Regex(@"\bFALSE\b")),
         ("ARRAY", new Regex(@"\bARRAY\b")),
+        ("ID", new Regex(@"([a-zA-Z]|[0-9])([a-zA-Z]|[0-9])*")),
 
 };
 
-        //This method tokenizes the input and tries to match it to some tokens in the list above
+
+        /// <summary>
+        ///This method tokenizes the input and tries to match it to some tokens in the list above 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public List<Token> Tokenize(string input)
         {
             List<Token> tokens = new List<Token>();
