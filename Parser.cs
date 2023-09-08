@@ -14,7 +14,7 @@ namespace _219003234_Naidoo_KN_CC
             inputTokens = new List<string>(); // Initialize the list of token types
             foreach (Token token in tokens)
             {
-                inputTokens.Add(token.Type); // Add the token type instead of lexeme
+                inputTokens.Add(token.Type.ToString()); // Add the token type as a string
             }
 
             stack = new Stack<string>();
@@ -100,4 +100,7 @@ namespace _219003234_Naidoo_KN_CC
                 || symbol == "STRING" || symbol == "SEMICOLON" || symbol == "ASK" || symbol == "LEFTPARENTHESIS"
                 || symbol == "RIGHTPARENTHESIS" || symbol == "STRINGLIT" || symbol == "SPEAK"
                 || symbol == "SHARE" || symbol == "INTEGERLIT" || symbol == "PLUS" || symbol == "MINUS"
-                || symbol == "AND" || symbol == "GREATER" || symbol == "GRE
+                || symbol == "AND" || symbol == "GREATER" || symbol == "EQUAL";
+        }
+    }
+}
