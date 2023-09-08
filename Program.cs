@@ -79,9 +79,19 @@ class Program
         inputTokens.Add(token.Type);
         }
 
+        /*
+        inputTokens = new List<string>();
+        inputTokens.Add("hello");
+        inputTokens.Add("hewdllo");
+        inputTokens.Add("hellwddwao");
+        inputTokens.Add("helawdadwlo");
 
-        // var parser = new Parser(tokens.Select(token => token.Type).ToList());
-        // parser.Parse();
+        foreach (string s in inputTokens) 
+        {
+
+            Console.WriteLine(s);
+        }
+        */
         var parser = new Parser(inputTokens);
         parser.Parse();
 
