@@ -30,7 +30,6 @@ namespace _219003234_Naidoo_KN_CC
             stack.Push("RECIPE"); // Push the start symbol onto the stack
         }
 
-
         public void Parse()
         {
             while (stack.Count > 0)
@@ -90,7 +89,7 @@ namespace _219003234_Naidoo_KN_CC
                 || symbol == "EXPR_PRIME" || symbol == "TERM" || symbol == "TERM_PRIME"
                 || symbol == "FACTOR" || symbol == "ARRAY_ACCESS" || symbol == "FUNCTION_CALL"
                 || symbol == "ARGUMENT_LIST" || symbol == "ARGUMENT_LIST_PRIME"
-                || symbol == "TYPE";
+                || symbol == "TYPE" || symbol == "LOOP" || symbol == "WHILE";
         }
 
         private bool IsTerminal(string symbol)
@@ -106,6 +105,5 @@ namespace _219003234_Naidoo_KN_CC
                 || symbol == "FORWARD_SLASH" || symbol == "THEN" || symbol == "ELSE" || symbol == "COMMA"
                 || symbol == "ASSIGN" || symbol == "LEFTBRACKET" || symbol == "RIGHTBRACKET" || symbol == "AT_SIGN";
         }
-
     }
 }
