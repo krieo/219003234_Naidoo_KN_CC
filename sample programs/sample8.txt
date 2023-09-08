@@ -1,7 +1,7 @@
 RECIPE FunctionCallWithArray
 DO
- METHOD Main() AS INTEGER
- DO
+METHOD Main() AS INTEGER
+DO
 INGREDIENT values[] AS STRING;
 values[0] = "1";
 values[1] = "2";
@@ -14,11 +14,11 @@ IF values[i] == "1" THEN
 DONE
 i = i + 1;
 DONE
- SHARE 0;
- DONE
- METHOD Print(message AS STRING) AS INTEGER
- DO
- SPEAK(message);
- SHARE 0;
- DONE
+SHARE 0;
+DONE
+METHOD Print(message AS STRING) AS INTEGER
+DO
+SPEAK(message);
+SHARE 0;
+DONE
 DONE

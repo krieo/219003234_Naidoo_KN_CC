@@ -1,12 +1,12 @@
 RECIPE StringManipulation
 DO
- METHOD Main() AS INTEGER
- DO
- INGREDIENT name AS STRING;
- ASK(name);
- INGREDIENT greeting AS STRING;
- greeting = "Hello, " + name + "!";
- SPEAK(greeting);
- SHARE 0;
- DONE
+METHOD Main() AS INTEGER
+DO
+INGREDIENT name AS STRING;
+ASK(name);
+INGREDIENT greeting AS STRING;
+greeting = "Hello, " + name + "!";
+SPEAK(greeting);
+SHARE 0;
+DONE
 DONE

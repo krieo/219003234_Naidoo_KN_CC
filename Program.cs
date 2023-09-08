@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using _219003234_Naidoo_KN_CC;
 
@@ -70,11 +71,26 @@ class Program
         // Create an instance of the Scanner class and tokenize the input
         Scanner scanner = new Scanner();
         List<Token> tokens = scanner.Tokenize(input);
-
+        var inputTokens = new List<string>();
         // Print out the type and lexeme pairs from the tokenized input
         foreach (Token token in tokens)
         {
             Console.WriteLine($"Type: {token.Type}, Lexeme: {token.Lexeme}");
+        inputTokens.Add(token.Type);
         }
+
+
+        // var parser = new Parser(tokens.Select(token => token.Type).ToList());
+        // parser.Parse();
+        var parser = new Parser(inputTokens);
+        parser.Parse();
+
+
+        //     var parser = new Parser(tokens);
+        //   parser.Parse();
+
+
+
+
     }
 }

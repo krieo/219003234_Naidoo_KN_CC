@@ -1,14 +1,14 @@
 RECIPE LogicalOperators
 DO
- METHOD Main() AS INTEGER
- DO
- INGREDIENT x AS INTEGER;
- x = 7;
- IF x > 5 AND x < 10 THEN
- SPEAK("use 1 cup sugar");
- ELSE
- SPEAK("Don’t add sugar");
- DONE
- SHARE 0;
- DONE
+METHOD Main() AS INTEGER
+DO
+INGREDIENT x AS INTEGER;
+x = 7;
+IF x > 5 AND x < 10 THEN
+SPEAK("use 1 cup sugar");
+ELSE
+SPEAK("Don’t add sugar");
+DONE
+SHARE 0;
+DONE
 DONE

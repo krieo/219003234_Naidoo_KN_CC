@@ -1,12 +1,12 @@
 RECIPE HelloWorld
 DO
- METHOD Main() AS INTEGER
- DO
- INGREDIENT name AS STRING;
- ASK(name);
- INGREDIENT message AS STRING;
- message = "Hello, " + name + "!";
- SPEAK(message);
- SHARE 0;
- DONE
+METHOD Main() AS INTEGER
+DO
+INGREDIENT name AS STRING;
+ASK(name);
+INGREDIENT message AS STRING;
+message = "Hello, " + name + "!";
+SPEAK(message);
+SHARE 0;
+DONE
 DONE

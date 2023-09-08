@@ -1,21 +1,21 @@
 RECIPE BooleanExample
 DO
- METHOD Main() AS INTEGER
- DO
- INGREDIENT isWet AS BOOL;
- isWet = TRUE;
- INGREDIENT isCake AS BOOL;
- isCake = FALSE;
- IF isWet THEN
- SPEAK("Add more flour");
- ELSE
- SPEAK("Bake");
- DONE
- IF isCake THEN
- SPEAK("Time to eat");
- ELSE
- SPEAK("no cake as yet :(");
- DONE
- SHARE 0;
- DONE
+METHOD Main() AS INTEGER
+DO
+INGREDIENT isWet AS BOOL;
+isWet = TRUE;
+INGREDIENT isCake AS BOOL;
+isCake = FALSE;
+IF isWet THEN
+SPEAK("Add more flour");
+ELSE
+SPEAK("Bake");
+DONE
+IF isCake THEN
+SPEAK("Time to eat");
+ELSE
+SPEAK("no cake as yet :(");
+DONE
+SHARE 0;
+DONE
 DONE
