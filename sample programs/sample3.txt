@@ -8,7 +8,6 @@ DO
  num2 = 7;
  INGREDIENT result AS INTEGER;
  result = @AddNumbers(num1, num2);
-6
  SPEAK("The sum is: " + result);
  SHARE 0;
  DONE
