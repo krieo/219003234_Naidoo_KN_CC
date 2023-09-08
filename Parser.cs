@@ -89,7 +89,7 @@ namespace _219003234_Naidoo_KN_CC
                 || symbol == "EXPR_PRIME" || symbol == "TERM" || symbol == "TERM_PRIME"
                 || symbol == "FACTOR" || symbol == "ARRAY_ACCESS" || symbol == "FUNCTION_CALL"
                 || symbol == "ARGUMENT_LIST" || symbol == "ARGUMENT_LIST_PRIME"
-                || symbol == "TYPE" || symbol == "LOOP" || symbol == "WHILE";
+                || symbol == "TYPE" || symbol == "LOOP" || symbol == "WHILE" || symbol == "MATH_OPERATION";
         }
 
         private bool IsTerminal(string symbol)
@@ -100,10 +100,4 @@ namespace _219003234_Naidoo_KN_CC
                 || symbol == "STRING" || symbol == "SEMICOLON" || symbol == "ASK" || symbol == "LEFTPARENTHESIS"
                 || symbol == "RIGHTPARENTHESIS" || symbol == "STRINGLIT" || symbol == "SPEAK"
                 || symbol == "SHARE" || symbol == "INTEGERLIT" || symbol == "PLUS" || symbol == "MINUS"
-                || symbol == "AND" || symbol == "GREATER" || symbol == "GREATEREQUAL" || symbol == "LESSER"
-                || symbol == "LESSEREQUAL" || symbol == "EQUAL" || symbol == "NEQ" || symbol == "STAR"
-                || symbol == "FORWARD_SLASH" || symbol == "THEN" || symbol == "ELSE" || symbol == "COMMA"
-                || symbol == "ASSIGN" || symbol == "LEFTBRACKET" || symbol == "RIGHTBRACKET" || symbol == "AT_SIGN";
-        }
-    }
-}
+                || symbol == "AND" || symbol == "GREATER" || symbol == "GRE
