@@ -6,8 +6,8 @@ namespace _219003234_Naidoo_KN_CC
     public abstract class ASTNode
     {
         // You can add common properties or methods shared among all AST nodes here
-        public int LineNumber { get; set; } // Store line number information
-        public int ColumnNumber { get; set; } // Store column number information
+     //   public int LineNumber { get; set; } // Store line number information
+     //   public int ColumnNumber { get; set; } // Store column number information
     }
 
     // AST node for a program
