@@ -6,8 +6,6 @@ namespace _219003234_Naidoo_KN_CC
     public abstract class ASTNode
     {
         // You can add common properties or methods shared among all AST nodes here
-     //   public int LineNumber { get; set; } // Store line number information
-     //   public int ColumnNumber { get; set; } // Store column number information
     }
 
     // AST node for a program
@@ -22,14 +20,61 @@ namespace _219003234_Naidoo_KN_CC
     }
 
     // AST node for a method
+    // AST node for a method
     public class ASTMethodNode : ASTNode
     {
         public string MethodName { get; set; }
         public List<ASTStatementNode> Statements { get; } = new List<ASTStatementNode>();
+        public List<ASTNode> Children { get; } = new List<ASTNode>();
 
         public void AddStatement(ASTStatementNode statement)
         {
             Statements.Add(statement);
+        }
+        public ASTExpressionNode GetLastExpression()
+        {
+            // Assuming that expressions are stored in the Statements list
+            if (Statements.Count > 0)
+            {
+                var lastStatement = Statements[Statements.Count - 1];
+                if (lastStatement.Children.Count > 0 && lastStatement.Children.Last() is ASTExpressionNode expression)
+                {
+                    return expression;
+                }
+            }
+            return null; // Return null if no expression is found
+        }
+
+        public void AddChild(ASTNode child)
+        {
+            Children.Add(child);
+        }
+    }
+    // AST node for an argument list
+    public class ASTArgumentListNode : ASTNode
+    {
+        public List<ASTArgumentNode> Arguments { get; } = new List<ASTArgumentNode>();
+
+        public void AddArgument(ASTArgumentNode argument)
+        {
+            Arguments.Add(argument);
+        }
+    }
+
+    // AST node for a loop
+    public class ASTLoopNode : ASTStatementNode
+    {
+        public ASTExpressionNode Condition { get; set; } // Condition for the loop
+        public List<ASTStatementNode> LoopStatements { get; } = new List<ASTStatementNode>(); // Statements inside the loop
+
+        public void SetCondition(ASTExpressionNode condition)
+        {
+            Condition = condition;
+        }
+
+        public void AddLoopStatement(ASTStatementNode statement)
+        {
+            LoopStatements.Add(statement);
         }
     }
 
@@ -43,6 +88,7 @@ namespace _219003234_Naidoo_KN_CC
             Children.Add(child);
         }
     }
+
 
     // AST node for an expression (you can create more specialized expression nodes)
     public class ASTExpressionNode : ASTNode
@@ -142,6 +188,8 @@ namespace _219003234_Naidoo_KN_CC
             Value = value;
         }
     }
+
+    // AST node for an identifier (variable or function name)
     public class ASTIdentifierNode : ASTExpressionNode
     {
         public string IdentifierName { get; set; }
@@ -193,8 +241,7 @@ namespace _219003234_Naidoo_KN_CC
         }
     }
 
-
-    // AST node for array literal
+    // AST node for an array literal
     public class ASTArrayLiteralNode : ASTExpressionNode
     {
         public List<ASTExpressionNode> Elements { get; } = new List<ASTExpressionNode>();
@@ -224,6 +271,7 @@ namespace _219003234_Naidoo_KN_CC
             InitialValue = initialValue;
         }
     }
+
     // AST node for array declaration
     public class ASTArrayDeclarationNode : ASTStatementNode
     {
@@ -251,46 +299,51 @@ namespace _219003234_Naidoo_KN_CC
         }
     }
 
+    // AST node for a term
+    public class ASTTermNode : ASTNode
+    {
+        public List<ASTFactorNode> Factors { get; } = new List<ASTFactorNode>();
 
+        public void AddFactor(ASTFactorNode factor)
+        {
+            Factors.Add(factor);
+        }
+    }
 
+    // AST node for a term prime
+    public class ASTTermPrimeNode : ASTNode
+    {
+        public string Operator { get; set; } // Operator (e.g., '*', '/')
+        public ASTTermNode RightTerm { get; set; }
+
+        public ASTTermPrimeNode(string @operator, ASTTermNode rightTerm)
+        {
+            Operator = @operator;
+            RightTerm = rightTerm;
+        }
+    }
+
+    // AST node for an expression prime
+    public class ASTExpressionPrimeNode : ASTNode
+    {
+        public string Operator { get; set; } // Operator (e.g., '+', '-')
+        public ASTTermNode RightTerm { get; set; }
+
+        public ASTExpressionPrimeNode(string @operator, ASTTermNode rightTerm)
+        {
+            Operator = @operator;
+            RightTerm = rightTerm;
+        }
+    }
+
+    // AST node for a factor
+    public class ASTFactorNode : ASTNode
+    {
+        public string FactorValue { get; set; }
+
+        public ASTFactorNode(string factorValue)
+        {
+            FactorValue = factorValue;
+        }
+    }
 }
-
-/*ASTProgramNode: Represents the entire program and can contain a list of methods or other top-level declarations.
-
-ASTMethodNode: Represents a method or function definition. It contains the method name, parameters, and a block of statements.
-
-ASTStatementNode: Represents a statement in your language. This can include assignment statements, conditional statements (if-else), loops (while, for), input/output statements, and function calls.
-
-ASTAssignmentNode: Represents an assignment statement, including the identifier being assigned and the expression being assigned to it.
-
-ASTIfStatementNode: Represents an if statement, including the condition, the block of statements executed if the condition is true, and an optional else block.
-
-ASTWhileLoopNode: Represents a while loop, including the loop condition and the block of statements that make up the loop body.
-
-ASTInputStatementNode: Represents an input statement, such as reading a value from the user or a file.
-
-ASTOutputStatementNode: Represents an output statement, such as printing a value to the console or a file.
-
-
-
-ASTExpressionNode: Represents an expression, which can be an arithmetic expression, a boolean expression, or a function call.
-
-ASTBinaryOperationNode: Represents a binary operation within an expression, like addition, subtraction, multiplication, etc.
-
-ASTLiteralNode: Represents literal values such as integers, strings, or boolean literals.
-
-
-
-ASTIdentifierNode: Represents an identifier, which could be a variable name or a function name.
-
-ASTFunctionCallNode: Represents a function call expression, including the function name and its arguments.
-
-ASTArgumentNode: Represents an argument passed to a function in a function call.
-
-
-
-ASTTypeNode: Represents data types in your language, such as integers, strings, floats, or custom-defined types.
-
-ASTArrayAccessNode: Represents access to elements in an array, including the array variable and the index.
-
-ASTArrayLiteralNode: Represents an array literal, initializing an array with values.*/
