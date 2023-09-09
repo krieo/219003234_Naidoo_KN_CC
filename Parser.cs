@@ -45,6 +45,8 @@ namespace _219003234_Naidoo_KN_CC
                 string currentToken = inputTokens[0];
                 string topOfStack = stack.Peek();
 
+                Console.WriteLine($"Processing: {topOfStack} -> {currentToken}");
+
                 if (IsTerminal(topOfStack))
                 {
                     if (topOfStack == currentToken)
@@ -72,7 +74,7 @@ namespace _219003234_Naidoo_KN_CC
                             stack.Push(productionRule[i]);
                         }
 
-                        // Construct AST nodes while parsing
+                        // Construct AST nodes for each non-terminal encountered
                         ConstructASTNode(topOfStack, productionRule);
                     }
                     else
@@ -86,11 +88,30 @@ namespace _219003234_Naidoo_KN_CC
                     // Handle other symbols (e.g., epsilon, special symbols)
                     stack.Pop();
                 }
+
+                Console.WriteLine("Stack contents after processing:");
+                foreach (var item in stack)
+                {
+                    Console.WriteLine(item);
+                }
             }
 
             // At this point, the parsing is successful
-            Console.WriteLine("Parsing successful.");
+            // At this point, you can check if both the stack and input tokens are empty.
+            // If they are, parsing is successful.
+            if (stack.Count == 0 && inputTokens.Count == 0)
+            {
+                Console.WriteLine("Parsing successful.");
+            }
+            else
+            {
+                // Handle parsing errors if the stack or inputTokens are not empty
+                Console.WriteLine("Parsing error: Incomplete parsing.");
+            }
+
         }
+
+
 
         private bool IsNonTerminal(string symbol)
         {
@@ -106,13 +127,14 @@ namespace _219003234_Naidoo_KN_CC
         private bool IsTerminal(string symbol)
         {
             // Implement a check to determine if the symbol is a terminal
-            return symbol == "RECIPE" || symbol == "ID" || symbol == "DO" || symbol == "DONE"
+            return symbol == "ID" || symbol == "DO" || symbol == "DONE"
                 || symbol == "METHOD" || symbol == "AS" || symbol == "INTEGER" || symbol == "INGREDIENT"
                 || symbol == "STRING" || symbol == "SEMICOLON" || symbol == "ASK" || symbol == "LEFTPARENTHESIS"
                 || symbol == "RIGHTPARENTHESIS" || symbol == "STRINGLIT" || symbol == "SPEAK"
                 || symbol == "SHARE" || symbol == "INTEGERLIT" || symbol == "PLUS" || symbol == "MINUS"
                 || symbol == "AND" || symbol == "GREATER" || symbol == "EQUAL";
         }
+
         private void ConstructASTNode(string nonTerminal, List<string> productionRule)
         {
             switch (nonTerminal)
@@ -120,6 +142,7 @@ namespace _219003234_Naidoo_KN_CC
                 case "RECIPE":
                     // Construct the root of the AST (program node)
                     AST = new ASTProgramNode();
+                    Console.WriteLine("Constructed ASTProgramNode (RECIPE)");
                     break;
 
                 case "METHOD":
@@ -128,6 +151,7 @@ namespace _219003234_Naidoo_KN_CC
                     method.MethodName = productionRule[1]; // Assuming the method name is the second token in the production rule
                     currentMethod = method; // Set the current method to the one being constructed
                     AST.AddMethod(method); // Add the method to the program node
+                    Console.WriteLine($"Constructed ASTMethodNode (METHOD) with MethodName: {method.MethodName}");
                     break;
 
                 case "METHOD_MAIN":
@@ -136,6 +160,7 @@ namespace _219003234_Naidoo_KN_CC
                     mainMethod.MethodName = "MAIN"; // Assuming the method name is "MAIN" for the main method
                     currentMethod = mainMethod; // Set the current method to the main method
                     AST.AddMethod(mainMethod); // Add the main method to the program node
+                    Console.WriteLine("Constructed ASTMethodNode (METHOD_MAIN) for the MAIN method");
                     break;
 
                 case "STMNT_BLOCK":
@@ -150,6 +175,7 @@ namespace _219003234_Naidoo_KN_CC
                             ASTStatementNode statement = new ASTStatementNode();
                             // Add the statement to the current method's Statements list
                             currentMethod.AddChild(statement);
+                            Console.WriteLine("Constructed ASTStatementNode (STMNT) within STMNT_BLOCK");
                         }
                         // Handle other tokens within STMNT_BLOCK if necessary
                     }
@@ -159,6 +185,7 @@ namespace _219003234_Naidoo_KN_CC
                     // Handle constructing AST nodes for STMNT (individual statements)
                     ASTStatementNode statementNode = new ASTStatementNode();
                     currentMethod.AddChild(statementNode);
+                    Console.WriteLine("Constructed ASTStatementNode (STMNT)");
                     break;
 
                 case "ELSE_BLOCK":
@@ -170,6 +197,7 @@ namespace _219003234_Naidoo_KN_CC
                         {
                             ASTStatementNode elseStatement = new ASTStatementNode();
                             currentMethod.AddChild(elseStatement);
+                            Console.WriteLine("Constructed ASTStatementNode (STMNT) within ELSE_BLOCK");
                         }
                         // Handle other tokens within ELSE_BLOCK if necessary
                     }
@@ -179,6 +207,7 @@ namespace _219003234_Naidoo_KN_CC
                     // Handle constructing AST nodes for EXPR
                     ASTExpressionNode expression = new ASTExpressionNode("expression"); // Replace with appropriate expression type
                     currentMethod.AddChild(expression);
+                    Console.WriteLine("Constructed ASTExpressionNode (EXPR)");
                     break;
 
                 case "EXPR_PRIME":
@@ -187,12 +216,14 @@ namespace _219003234_Naidoo_KN_CC
                     ASTTermNode expressionPrimeRightTerm = new ASTTermNode(); // Replace with the correct way to obtain the right term
                     ASTExpressionPrimeNode expressionPrime = new ASTExpressionPrimeNode(expressionPrimeOperator, expressionPrimeRightTerm);
                     currentMethod.AddChild(expressionPrime);
+                    Console.WriteLine("Constructed ASTExpressionPrimeNode (EXPR_PRIME)");
                     break;
 
                 case "TERM":
                     // Handle constructing AST nodes for TERM
                     ASTTermNode term = new ASTTermNode();
                     currentMethod.AddChild(term);
+                    Console.WriteLine("Constructed ASTTermNode (TERM)");
                     break;
 
                 case "TERM_PRIME":
@@ -201,12 +232,14 @@ namespace _219003234_Naidoo_KN_CC
                     ASTTermNode termPrimeRightTerm = new ASTTermNode(); // Replace with the correct way to obtain the right term
                     ASTTermPrimeNode termPrime = new ASTTermPrimeNode(termPrimeOperator, termPrimeRightTerm);
                     currentMethod.AddChild(termPrime);
+                    Console.WriteLine("Constructed ASTTermPrimeNode (TERM_PRIME)");
                     break;
 
                 case "FACTOR":
                     // Handle constructing AST nodes for FACTOR
                     ASTFactorNode factor = new ASTFactorNode(productionRule[0]); // Assuming the factor value is the first token in the production rule
                     currentMethod.AddChild(factor);
+                    Console.WriteLine($"Constructed ASTFactorNode (FACTOR) with Value: {factor.FactorValue}");
                     break;
 
                 case "ARRAY_ACCESS":
@@ -215,6 +248,7 @@ namespace _219003234_Naidoo_KN_CC
                     ASTExpressionNode arrayIndex = currentMethod.GetLastExpression(); // Assuming you have a method to get the last expression
                     ASTArrayAccessNode arrayAccess = new ASTArrayAccessNode(arrayIdentifier, arrayIndex);
                     currentMethod.AddChild(arrayAccess);
+                    Console.WriteLine($"Constructed ASTArrayAccessNode (ARRAY_ACCESS) with Identifier: {arrayIdentifier.IdentifierName}");
                     break;
 
                 case "FUNCTION_CALL":
@@ -222,12 +256,14 @@ namespace _219003234_Naidoo_KN_CC
                     string functionName = productionRule[1]; // Assuming the function name is the second token in the production rule
                     ASTFunctionCallNode functionCall = new ASTFunctionCallNode(functionName);
                     currentMethod.AddChild(functionCall);
+                    Console.WriteLine($"Constructed ASTFunctionCallNode (FUNCTION_CALL) with FunctionName: {functionName}");
                     break;
 
                 case "ARGUMENT_LIST":
                     // Handle constructing AST nodes for ARGUMENT_LIST
                     ASTArgumentListNode argumentList = new ASTArgumentListNode(); // You can provide the appropriate parameters here
                     currentMethod.AddChild(argumentList);
+                    Console.WriteLine("Constructed ASTArgumentListNode (ARGUMENT_LIST)");
                     break;
 
                 case "TYPE":
@@ -235,21 +271,25 @@ namespace _219003234_Naidoo_KN_CC
                     string typeName = productionRule[0]; // Assuming the type name is the first token in the production rule
                     ASTTypeNode type = new ASTTypeNode(typeName);
                     currentMethod.AddChild(type);
+                    Console.WriteLine($"Constructed ASTTypeNode (TYPE) with TypeName: {typeName}");
                     break;
 
                 case "LOOP":
                     // Handle constructing AST nodes for LOOP
                     ASTLoopNode loop = new ASTLoopNode(); // You can provide the appropriate parameters here
                     currentMethod.AddChild(loop);
+                    Console.WriteLine("Constructed ASTLoopNode (LOOP)");
                     break;
 
                 // Handle other non-terminals in a similar manner
 
                 default:
                     // Handle unknown non-terminals (optional)
+                    Console.WriteLine($"Constructed unknown node: {nonTerminal}");
                     break;
             }
         }
+
 
 
     }

@@ -286,6 +286,8 @@ namespace _219003234_Naidoo_KN_CC
     }
 
     // AST node for array access
+    // AST node for array access
+    // AST node for array access
     public class ASTArrayAccessNode : ASTExpressionNode
     {
         public ASTIdentifierNode ArrayIdentifier { get; set; }
@@ -298,6 +300,8 @@ namespace _219003234_Naidoo_KN_CC
             Index = index;
         }
     }
+
+
 
     // AST node for a term
     public class ASTTermNode : ASTNode
