@@ -78,29 +78,11 @@ class Program
             Console.WriteLine($"Type: {token.Type}, Lexeme: {token.Lexeme}");
             inputTokens.Add(token.Type);
         }
+        // Create an instance of the ParsingTable class
+        ParsingTable parsingTable = new ParsingTable();
 
-        /*
-        inputTokens = new List<string>();
-        inputTokens.Add("hello");
-        inputTokens.Add("hewdllo");
-        inputTokens.Add("hellwddwao");
-        inputTokens.Add("helawdadwlo");
-
-        foreach (string s in inputTokens) 
-        {
-
-            Console.WriteLine(s);
-        }
-        */
-        //  var parser = new Parser(inputTokens);
-        //   parser.Parse();
-
-
-        //     var parser = new Parser(tokens);
-        //   parser.Parse();
-
-
-
-
+        // Create an instance of the Parser class and parse the inputTokens
+ //       Parser parser = new Parser(inputTokens, parsingTable);
+  //      parser.Parse();
     }
 }

@@ -3,13 +3,19 @@ using System.Collections.Generic;
 
 public class ParsingTable
 {
+  
     private Dictionary<string, List<List<string>>> productionRules;
-
+    private HashSet<string> terminalSymbols;
+    private HashSet<string> nonTerminalSymbols;
     public ParsingTable()
     {
+       
+        terminalSymbols = new HashSet<string>();
+        nonTerminalSymbols = new HashSet<string>();
+
         productionRules = new Dictionary<string, List<List<string>>>();
         // Initialize the production rules here
-        AddProduction("RECIPE", new List<List<string>> { new List<string> { "RECIPE", "ID", "DO", "METHOD_MAIN", "DONE" } });
+        AddProduction("RECIPE", new List<List<string>> { new List<string> { "ID", "DO", "METHOD_MAIN", "DONE" } });
         AddProduction("METHOD_MAIN", new List<List<string>> { new List<string> { "METHOD", "MAIN", "LEFTPARENTHESIS", "RIGHTPARENTHESIS", "DO", "STMNT_BLOCK", "DONE" } });
         AddProduction("STMNT_BLOCK", new List<List<string>> { new List<string> { "STMNT", "STMNT_BLOCK" }, new List<string> { } });
         AddProduction("STMNT", new List<List<string>> { new List<string> { "ASK", "LEFTPARENTHESIS", "ID", "RIGHTPARENTHESIS", "SEMICOLON" } });
@@ -63,8 +69,29 @@ public class ParsingTable
         AddProduction("TYPE", new List<List<string>> { new List<string> { "BOOLEAN" } });
 
 
-    }
 
+        // Populate terminal and non-terminal symbols
+        foreach (var rule in productionRules)
+        {
+            nonTerminalSymbols.Add(rule.Key);
+            foreach (var option in rule.Value)
+            {
+                foreach (var symbol in option)
+                {
+                    if (!IsTerminal(symbol))
+                    {
+                        nonTerminalSymbols.Add(symbol);
+                      //  Console.WriteLine(symbol + " -non-terminal");
+                    }
+                    else
+                    {
+                        terminalSymbols.Add(symbol);
+                      //  Console.WriteLine(symbol + " -terminal");
+                    }
+                }
+            }
+        }
+    }
     public void AddProduction(string nonTerminal, List<List<string>> production)
     {
         if (!productionRules.ContainsKey(nonTerminal))
@@ -83,5 +110,15 @@ public class ParsingTable
         }
 
         throw new ArgumentException($"Production rule for {nonTerminal} not found.");
+    }
+
+    public bool IsTerminal(string symbol)
+    {
+        return terminalSymbols.Contains(symbol);
+    }
+
+    public bool IsNonTerminal(string symbol)
+    {
+        return nonTerminalSymbols.Contains(symbol);
     }
 }
