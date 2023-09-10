@@ -9,70 +9,79 @@ namespace _219003234_Naidoo_KN_CC
     /// </summary>
     public class Scanner
     {
+        // This list represents all of the tokens used in the language (type and lexemes)
+        // The items in the list will get matched in order, which is why keywords are ordered from highest priority to lowest.
+        //although i also added \b which acts as word boundaries so that a word will not get matched if it is a substring of 
+        //another word so if i input "INTEGERHELLO" this will not match to integer but instead ID
         private readonly List<(string TokenType, Regex Pattern)> tokenDefinitions = new List<(string, Regex)>
-{
-    // Keywords
-    ("RECIPE", new Regex(@"\bRECIPE\b")),
-    ("METHOD", new Regex(@"\bMETHOD\b")),
-    ("INTEGER", new Regex(@"\bINTEGER\b")),
-    ("INGREDIENT", new Regex(@"\bINGREDIENT\b")),
-    ("FLOAT", new Regex(@"\bFLOAT\b")),
-    ("SPEAK", new Regex(@"\bSPEAK\b")),
-    ("SHARE", new Regex(@"\bSHARE\b")),
-    ("WHILE", new Regex(@"\bWHILE\b")),
-    ("DONE", new Regex(@"\bDONE\b")),
-    ("LOOP", new Regex(@"\bLOOP\b")),
-    ("ELSE", new Regex(@"\bELSE\b")),
-    ("ASK", new Regex(@"\bASK\b")),
-    ("AS", new Regex(@"\bAS\b")),
-    ("DO", new Regex(@"\bDO\b")),
-    ("IF", new Regex(@"\bIF\b")),
-    ("END", new Regex(@"\bEND\b")), // Added for closing constructs
-    ("TRUE", new Regex(@"\bTRUE\b")), // Added for boolean literals
-    ("FALSE", new Regex(@"\bFALSE\b")), // Added for boolean literals
-    ("ARRAY", new Regex(@"\bARRAY\b")),
-    ("STRING", new Regex(@"\bSTRING\b")),
-    ("BOOL", new Regex(@"\bBOOL\b")),
-    ("ARRAY_DECL", new Regex(@"\bARRAY_DECL\b")), // Added for array declarations
-    ("ARRAY_ASSIGNMENT", new Regex(@"\bARRAY_ASSIGNMENT\b")), // Added for array assignments
+        {
+   ("RECIPE", new Regex(@"\bRECIPE\b")),
+("METHOD", new Regex(@"\bMETHOD\b")),
+("INTEGER", new Regex(@"\bINTEGER\b")),
+("INGREDIENT", new Regex(@"\bINGREDIENT\b")),
+("FLOAT", new Regex(@"\bFLOAT\b")),
+("SPEAK", new Regex(@"\bSPEAK\b")),
+("SHARE", new Regex(@"\bSHARE\b")),
+("WHILE", new Regex(@"\bWHILE\b")),
+("DONE", new Regex(@"\bDONE\b")),
+("LOOP", new Regex(@"\bLOOP\b")),
+("ELSE", new Regex(@"\bELSE\b")),
+("ASK", new Regex(@"\bASK\b")),
+("AS", new Regex(@"\bAS\b")),
+("DO", new Regex(@"\bDO\b")),
+("IF", new Regex(@"\bIF\b")),
+("PLUS", new Regex(@"\+")),
+("MINUS", new Regex(@"\-")),
+("FORWARD SLASH", new Regex(@"/")),
+("STAR", new Regex(@"\*")),
+("ASSIGN", new Regex(@"=")),
+("EQUAL", new Regex(@"==")),
+("NEQ", new Regex(@"<>")),
+("GREATEREQUAL", new Regex(@">=")),
+("LESSEREQUAL", new Regex(@"<=")),
+("GREATER", new Regex(@">")),
+("LESSER", new Regex(@"<")),
+("SEMICOLON", new Regex(@";")),
+("LEFTPARENTHESIS", new Regex(@"\(")),
+("RIGHTPARENTHESIS", new Regex(@"\)")),
+("LEFTBRACKET", new Regex(@"\[")),
+("RIGHTBRACKET", new Regex(@"\]")),
+("STRINGLIT", new Regex(@"""(?:[a-zA-Z0-9~!@#$%^&*`()\[\]_\-+=|{};:<>,.?\\])*")),
+("INTEGERLIT", new Regex(@"[0-9]+")),
+("FLOATLIT", new Regex(@"[0-9]*\.[0-9]*")),
+("BOOLLITTRUE", new Regex(@"\bTRUE\b")),
+("BOOLLITFALSE", new Regex(@"\bFALSE\b")),
+("ARRAY", new Regex(@"\bARRAY\b")),
+("ID", new Regex(@"\b([a-zA-Z]|[0-9])([a-zA-Z]|[0-9])*\b")),
+("METHOD_MAIN", new Regex(@"\bMETHOD_MAIN\b")),
+("STMNT_BLOCK", new Regex(@"\bSTMNT_BLOCK\b")),
+("STMNT", new Regex(@"\bSTMNT\b")),
+("ASK", new Regex(@"\bASK\b")),
+("SPEAK", new Regex(@"\bSPEAK\b")),
+("SHARE", new Regex(@"\bSHARE\b")),
+("IF", new Regex(@"\bIF\b")),
+("ELSE_BLOCK", new Regex(@"\bELSE_BLOCK\b")),
+("FUNCTION_CALL", new Regex(@"\bFUNCTION_CALL\b")),
+("EXPR", new Regex(@"\bEXPR\b")),
+("EXPR_PRIME", new Regex(@"\bEXPR_PRIME\b")),
+("TERM", new Regex(@"\bTERM\b")),
+("TERM_PRIME", new Regex(@"\bTERM_PRIME\b")),
+("FACTOR", new Regex(@"\bFACTOR\b")),
+("ARRAY_ACCESS", new Regex(@"\bARRAY_ACCESS\b")),
+("ARRAY_DECL", new Regex(@"\bARRAY_DECL\b")),
+("ARRAY_SIZE", new Regex(@"\bARRAY_SIZE\b")),
+("ARRAY_ASSIGNMENT", new Regex(@"\bARRAY_ASSIGNMENT\b")),
+("ARGUMENT_LIST", new Regex(@"\bARGUMENT_LIST\b")),
+("ARGUMENT_LIST_PRIME", new Regex(@"\bARGUMENT_LIST_PRIME\b")),
+("TYPE", new Regex(@"\bTYPE\b"))
 
-    // Operators
-    ("PLUS", new Regex(@"\+")),
-    ("MINUS", new Regex(@"\-")),
-    ("FORWARD SLASH", new Regex(@"/")),
-    ("STAR", new Regex(@"\*")),
-    ("ASSIGN", new Regex(@"=")),
-    ("EQUAL", new Regex(@"==")),
-    ("NEQ", new Regex(@"<>")),
-    ("GREATEREQUAL", new Regex(@">=")),
-    ("LESSEREQUAL", new Regex(@"<=")),
-    ("GREATER", new Regex(@">")),
-    ("LESSER", new Regex(@"<")),
-    ("SEMICOLON", new Regex(@";")),
-    ("LEFTPARENTHESIS", new Regex(@"\(")),
-    ("RIGHTPARENTHESIS", new Regex(@"\)")),
-    ("LEFTBRACKET", new Regex(@"\[")), // Added for array access
-    ("RIGHTBRACKET", new Regex(@"\]")), // Added for array access
-    ("STRINGLIT", new Regex(@"""(?:[a-zA-Z0-9~!@#$%^&*`()\[\]_\-+=|{};:<>,.?\\])*")),
-    ("INTEGERLIT", new Regex(@"[0-9]+")),
-    ("FLOATLIT", new Regex(@"[0-9]*\.[0-9]*")),
+        };
 
-    // Function Call (using @)
-    ("FUNCTIONCALL", new Regex(@"@\w+\(")), // Matches @FunctionName(
-
-    // Logical Operators
-    ("LOGICALAND", new Regex(@"AND")),
-    ("LOGICALOR", new Regex(@"OR")),
-
-    // String Concatenation
-    ("STRINGCONCAT", new Regex(@"\+")),
-
-    // Whitespace and Comments
-    ("WHITESPACE", new Regex(@"\s+")), // Matches whitespace
-    ("COMMENT", new Regex(@"\/\/[^\n]*")) // Matches single-line comments
-};
-
-
+        /// <summary>
+        /// This method tokenizes the input and tries to match it to some tokens in the list above 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public List<Token> Tokenize(string input)
         {
             List<Token> tokens = new List<Token>();
@@ -80,29 +89,22 @@ namespace _219003234_Naidoo_KN_CC
 
             while (currentPosition < input.Length)
             {
-                int maxLength = 0;
-                Token? longestMatch = null;
+                bool matched = false;
 
                 foreach ((string tokenType, Regex pattern) in tokenDefinitions)
                 {
                     Match match = pattern.Match(input, currentPosition);
 
-                    if (match.Success && match.Index == currentPosition && match.Length > maxLength)
+                    if (match.Success && match.Index == currentPosition)
                     {
-                        maxLength = match.Length;
-                        longestMatch = new Token(tokenType, match.Value);
+                        matched = true;
+                        tokens.Add(new Token(tokenType, match.Value));
+                        currentPosition += match.Length;
+                        break;
                     }
                 }
 
-                if (longestMatch != null)
-                {
-                    if (longestMatch.Type != "WHITESPACE" && longestMatch.Type != "COMMENT")
-                    {
-                        tokens.Add(longestMatch);
-                    }
-                    currentPosition += maxLength;
-                }
-                else
+                if (!matched)
                 {
                     // Skip unrecognized characters
                     currentPosition++;
@@ -111,9 +113,11 @@ namespace _219003234_Naidoo_KN_CC
 
             return tokens;
         }
-
     }
 }
+
+
+
 
 /*
  * 
