@@ -76,7 +76,7 @@ class Program
         foreach (Token token in tokens)
         {
             Console.WriteLine($"Type: {token.Type}, Lexeme: {token.Lexeme}");
-        inputTokens.Add(token.Type);
+            inputTokens.Add(token.Type);
         }
 
         /*
@@ -92,8 +92,8 @@ class Program
             Console.WriteLine(s);
         }
         */
-        var parser = new Parser(inputTokens);
-        parser.Parse();
+        //  var parser = new Parser(inputTokens);
+        //   parser.Parse();
 
 
         //     var parser = new Parser(tokens);

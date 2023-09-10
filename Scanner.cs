@@ -9,12 +9,9 @@ namespace _219003234_Naidoo_KN_CC
     /// </summary>
     public class Scanner
     {
-        // This list represents all of the tokens used in the language (type and lexemes)
-        // The items in the list will get matched in order, which is why keywords are ordered from highest priority to lowest.
-        //although i also added \b which acts as word boundaries so that a word will not get matched if it is a substring of 
-        //another word so if i input "INTEGERHELLO" this will not match to integer but instead ID
         private readonly List<(string TokenType, Regex Pattern)> tokenDefinitions = new List<(string, Regex)>
         {
+            // Keywords
             ("RECIPE", new Regex(@"\bRECIPE\b")),
             ("METHOD", new Regex(@"\bMETHOD\b")),
             ("INTEGER", new Regex(@"\bINTEGER\b")),
@@ -30,6 +27,14 @@ namespace _219003234_Naidoo_KN_CC
             ("AS", new Regex(@"\bAS\b")),
             ("DO", new Regex(@"\bDO\b")),
             ("IF", new Regex(@"\bIF\b")),
+            ("END", new Regex(@"\bEND\b")), // Added for closing constructs
+            ("TRUE", new Regex(@"\bTRUE\b")), // Added for boolean literals
+            ("FALSE", new Regex(@"\bFALSE\b")), // Added for boolean literals
+            ("ARRAY", new Regex(@"\bARRAY\b")),
+            ("STRING", new Regex(@"\bSTRING\b")),
+            ("BOOL", new Regex(@"\bBOOL\b")),
+
+            // Operators
             ("PLUS", new Regex(@"\+")),
             ("MINUS", new Regex(@"\-")),
             ("FORWARD SLASH", new Regex(@"/")),
@@ -44,22 +49,25 @@ namespace _219003234_Naidoo_KN_CC
             ("SEMICOLON", new Regex(@";")),
             ("LEFTPARENTHESIS", new Regex(@"\(")),
             ("RIGHTPARENTHESIS", new Regex(@"\)")),
-            ("STRING", new Regex(@"\bSTRING\b")),
-            ("BOOL", new Regex(@"\bBOOL\b")),
             ("STRINGLIT", new Regex(@"""(?:[a-zA-Z0-9~!@#$%^&*`()\[\]_\-+=|{};:<>,.?\\])*")),
             ("INTEGERLIT", new Regex(@"[0-9]+")),
             ("FLOATLIT", new Regex(@"[0-9]*\.[0-9]*")),
-            ("BOOLLITTRUE", new Regex(@"\bTRUE\b")),
-            ("BOOLLITFALSE", new Regex(@"\bFALSE\b")),
-            ("ARRAY", new Regex(@"\bARRAY\b")),
-            ("ID", new Regex(@"\b([a-zA-Z]|[0-9])([a-zA-Z]|[0-9])*\b")),
+
+            // Function Call (using @)
+            ("FUNCTIONCALL", new Regex(@"@\w+\(")), // Matches @FunctionName(
+
+            // Logical Operators
+            ("LOGICALAND", new Regex(@"AND")),
+            ("LOGICALOR", new Regex(@"OR")),
+            
+            // String Concatenation
+            ("STRINGCONCAT", new Regex(@"\+")),
+
+            // Whitespace and Comments
+            ("WHITESPACE", new Regex(@"\s+")), // Matches whitespace
+            ("COMMENT", new Regex(@"\/\/[^\n]*")) // Matches single-line comments
         };
 
-        /// <summary>
-        /// This method tokenizes the input and tries to match it to some tokens in the list above 
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
         public List<Token> Tokenize(string input)
         {
             List<Token> tokens = new List<Token>();
@@ -95,13 +103,8 @@ namespace _219003234_Naidoo_KN_CC
 
             return tokens;
         }
-
-
     }
 }
-
-
-
 
 /*
  * 
