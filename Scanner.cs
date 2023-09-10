@@ -18,6 +18,7 @@ namespace _219003234_Naidoo_KN_CC
    ("RECIPE", new Regex(@"\bRECIPE\b")),
 ("METHOD", new Regex(@"\bMETHOD\b")),
 ("INTEGER", new Regex(@"\bINTEGER\b")),
+("STRING", new Regex(@"\bSTRING\b")),
 ("INGREDIENT", new Regex(@"\bINGREDIENT\b")),
 ("FLOAT", new Regex(@"\bFLOAT\b")),
 ("SPEAK", new Regex(@"\bSPEAK\b")),
