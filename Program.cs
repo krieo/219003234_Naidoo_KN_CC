@@ -25,9 +25,9 @@ class Program
         string dataFolderPath = Path.Combine(projectDirectory, "sample programs");
         string filename = "sample8.txt";
         bool continuee = true;
-        ParsingTable parsingTable1 = new ParsingTable();
-      //  while (continuee == true)
-      //  {
+       // ParsingTable parsingTable1 = new ParsingTable();
+        while (continuee == true)
+        {
             Console.WriteLine("Enter number to load file from 1 to 8 (any other input will result in file 8 being loaded):");
             string fileNumber = Console.ReadLine();
 
@@ -82,19 +82,8 @@ class Program
                 inputTokens.Add(token.Type);
             }
 
-        // }
-        ParsingTable parsingTable = new ParsingTable();
-        SimpleParser parser = new SimpleParser(inputTokens, parsingTable);
-        bool parsingResult = parser.Parse();
-
-        if (parsingResult)
-        {
-            Console.WriteLine("Parsing succeeded.");
-        }
-        else
-        {
-            Console.WriteLine("Parsing failed.");
-        }
+         }
+       
 
         // Create an instance of the Parser class and parse the inputTokens
         //       Parser parser = new Parser(inputTokens, parsingTable);

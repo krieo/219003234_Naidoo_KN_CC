@@ -3,21 +3,13 @@ using System.Collections.Generic;
 
 public class ParsingTable
 {
-  
     private Dictionary<string, List<List<string>>> productionRules;
-    private HashSet<string> terminalSymbols;
-    private HashSet<string> nonTerminalSymbols;
+
     public ParsingTable()
     {
-       
-        terminalSymbols = new HashSet<string>();
-        nonTerminalSymbols = new HashSet<string>();
-
         productionRules = new Dictionary<string, List<List<string>>>();
         // Initialize the production rules here
-        AddProduction("RECIPE", new List<List<string>> { new List<string> { "ID", "DO", "METHOD_MAIN", "DONE" } });
-        AddProduction("DONE", new List<List<string>> { new List<string> { } });
-
+        AddProduction("RECIPE", new List<List<string>> { new List<string> { "RECIPE", "ID", "DO", "METHOD_MAIN", "DONE" } });
         AddProduction("METHOD_MAIN", new List<List<string>> { new List<string> { "METHOD", "MAIN", "LEFTPARENTHESIS", "RIGHTPARENTHESIS", "DO", "STMNT_BLOCK", "DONE" } });
         AddProduction("STMNT_BLOCK", new List<List<string>> { new List<string> { "STMNT", "STMNT_BLOCK" }, new List<string> { } });
         AddProduction("STMNT", new List<List<string>> { new List<string> { "ASK", "LEFTPARENTHESIS", "ID", "RIGHTPARENTHESIS", "SEMICOLON" } });
@@ -27,7 +19,7 @@ public class ParsingTable
         AddProduction("STMNT", new List<List<string>> { new List<string> { "ID", "ASSIGN", "ARRAY_ACCESS", "SEMICOLON" } });
         AddProduction("STMNT", new List<List<string>> { new List<string> { "IF", "EXPR", "THEN", "STMNT_BLOCK", "ELSE_BLOCK", "DONE" } });
         AddProduction("ELSE_BLOCK", new List<List<string>> { new List<string> { "ELSE", "STMNT_BLOCK" } });
-        AddProduction("ELSE_BLOCK", new List<List<string>> { });
+        AddProduction("ELSE_BLOCK", new List<List<string>> { new List<string> { } });
         AddProduction("STMNT", new List<List<string>> { new List<string> { "FUNCTION_CALL", "SEMICOLON" } });
         AddProduction("EXPR", new List<List<string>> { new List<string> { "TERM", "EXPR_PRIME" } });
         AddProduction("EXPR_PRIME", new List<List<string>> { new List<string> { "PLUS", "TERM", "EXPR_PRIME" } });
@@ -39,7 +31,7 @@ public class ParsingTable
         AddProduction("EXPR_PRIME", new List<List<string>> { new List<string> { "LESSEREQUAL", "TERM", "EXPR_PRIME" } });
         AddProduction("EXPR_PRIME", new List<List<string>> { new List<string> { "EQUAL", "TERM", "EXPR_PRIME" } });
         AddProduction("EXPR_PRIME", new List<List<string>> { new List<string> { "NEQ", "TERM", "EXPR_PRIME" } });
-        AddProduction("EXPR_PRIME", new List<List<string>> { });
+        AddProduction("EXPR_PRIME", new List<List<string>> { new List<string> { } });
         AddProduction("TERM", new List<List<string>> { new List<string> { "FACTOR", "TERM_PRIME" } });
         AddProduction("TERM_PRIME", new List<List<string>> { new List<string> { "STAR", "FACTOR", "TERM_PRIME" } });
         AddProduction("TERM_PRIME", new List<List<string>> { new List<string> { "FORWARD_SLASH", "FACTOR", "TERM_PRIME" } });
@@ -50,7 +42,7 @@ public class ParsingTable
         AddProduction("TERM_PRIME", new List<List<string>> { new List<string> { "LESSEREQUAL", "FACTOR", "TERM_PRIME" } });
         AddProduction("TERM_PRIME", new List<List<string>> { new List<string> { "EQUAL", "FACTOR", "TERM_PRIME" } });
         AddProduction("TERM_PRIME", new List<List<string>> { new List<string> { "NEQ", "FACTOR", "TERM_PRIME" } });
-        AddProduction("TERM_PRIME", new List<List<string>> { });
+        AddProduction("TERM_PRIME", new List<List<string>> { new List<string> { } });
         AddProduction("FACTOR", new List<List<string>> { new List<string> { "ID" } });
         AddProduction("FACTOR", new List<List<string>> { new List<string> { "INTEGERLIT" } });
         AddProduction("FACTOR", new List<List<string>> { new List<string> { "STRINGLIT" } });
@@ -64,36 +56,13 @@ public class ParsingTable
         AddProduction("FUNCTION_CALL", new List<List<string>> { new List<string> { "AT_SIGN", "ID", "LEFTPARENTHESIS", "ARGUMENT_LIST", "RIGHTPARENTHESIS" } });
         AddProduction("ARGUMENT_LIST", new List<List<string>> { new List<string> { "EXPR", "ARGUMENT_LIST_PRIME" } });
         AddProduction("ARGUMENT_LIST_PRIME", new List<List<string>> { new List<string> { "COMMA", "EXPR", "ARGUMENT_LIST_PRIME" } });
-        AddProduction("ARGUMENT_LIST_PRIME", new List<List<string>> { });
+        AddProduction("ARGUMENT_LIST_PRIME", new List<List<string>> { new List<string> { } });
         AddProduction("TYPE", new List<List<string>> { new List<string> { "INTEGER" } });
         AddProduction("TYPE", new List<List<string>> { new List<string> { "FLOAT" } });
         AddProduction("TYPE", new List<List<string>> { new List<string> { "STRING" } });
         AddProduction("TYPE", new List<List<string>> { new List<string> { "BOOLEAN" } });
-
-
-
-        // Populate terminal and non-terminal symbols
-        foreach (var rule in productionRules)
-        {
-            nonTerminalSymbols.Add(rule.Key);
-            foreach (var option in rule.Value)
-            {
-                foreach (var symbol in option)
-                {
-                    if (!IsTerminal(symbol))
-                    {
-                        nonTerminalSymbols.Add(symbol);
-                       // Console.WriteLine(symbol + " -non-terminal");
-                    }
-                    else
-                    {
-                        terminalSymbols.Add(symbol);
-                       // Console.WriteLine(symbol + " -terminal");
-                    }
-                }
-            }
-        }
     }
+
     public void AddProduction(string nonTerminal, List<List<string>> production)
     {
         if (!productionRules.ContainsKey(nonTerminal))
@@ -112,18 +81,5 @@ public class ParsingTable
         }
 
         throw new ArgumentException($"Production rule for {nonTerminal} not found.");
-    }
-  
-
-
-
-    public bool IsTerminal(string symbol)
-    {
-        return terminalSymbols.Contains(symbol);
-    }
-
-    public bool IsNonTerminal(string symbol)
-    {
-        return nonTerminalSymbols.Contains(symbol);
     }
 }
