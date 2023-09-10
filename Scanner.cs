@@ -23,7 +23,7 @@ namespace _219003234_Naidoo_KN_CC
 ("FLOAT", new Regex(@"\bFLOAT\b")),
 ("SPEAK", new Regex(@"\bSPEAK\b")),
 ("SHARE", new Regex(@"\bSHARE\b")),
-("WHILE", new Regex(@"\bWHILE\b")),
+("WHILE", new Regex(@"\bWHILE\b")), //CHECKS IF THESE ARE COREECT****************************************************************************************************************************************BUSY HERE CHECKING IF THESE ARE CORRECT BECAUSE BEFORE I MISSED STRING AM ALSO BUSY WITH PARSER
 ("DONE", new Regex(@"\bDONE\b")),
 ("LOOP", new Regex(@"\bLOOP\b")),
 ("ELSE", new Regex(@"\bELSE\b")),
