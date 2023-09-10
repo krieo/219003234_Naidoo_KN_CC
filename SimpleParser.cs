@@ -1,96 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
-public class SimpleParser
+namespace _219003234_Naidoo_KN_CC
 {
-    private ParsingTable parsingTable;
-    private Stack<string> stack;
-    private List<string> inputTokens;
-
-    public SimpleParser(List<string> tokens, ParsingTable table)
+    public class SimpleParser
     {
-        inputTokens = tokens;
-        parsingTable = table;
-    }
+        private List<string> tokenList;
+        private List<string> productionList;
 
-    public bool Parse()
-    {
-        stack = new Stack<string>();
-
-        // Push the start symbol onto the stack
-        stack.Push("RECIPE");
-
-        int inputIndex = 0;
-
-        while (stack.Count > 0)
+        public SimpleParser(List<string> tokens)
         {
-            string currentSymbol = stack.Peek();
-            Console.WriteLine($"Current Symbol: {currentSymbol}");
+            tokenList = tokens;
+            productionList = new List<string>();
+        }
 
-            if (parsingTable.IsTerminal(currentSymbol))
+        public bool Parse()
+        {
+            while (tokenList.Count > 0 && productionList.Count > 0)
             {
-                // If the current symbol is a terminal, compare it with the next input token
-                if (currentSymbol == inputTokens[inputIndex])
+                string currentToken = tokenList[0];
+
+                if (productionList[0] == currentToken)
                 {
-                    Console.WriteLine($"Matched Terminal: {currentSymbol}");
-                    stack.Pop();
-                    inputIndex++;
+                    // Current token in production list matches the current token in token list.
+                    tokenList.RemoveAt(0);
+                    productionList.RemoveAt(0);
+                    Console.WriteLine($"Matched token: {currentToken}");
                 }
                 else
                 {
-                    // Error: Mismatched terminal
-                    Console.WriteLine($"Error: Expected '{currentSymbol}' but got '{inputTokens[inputIndex]}'");
+                    // No match, parsing failed.
+                    Console.WriteLine($"Parsing failed at token: {currentToken}");
                     return false;
                 }
             }
-            else if (parsingTable.IsNonTerminal(currentSymbol))
+
+            // Parsing is successful if both lists are empty.
+            if (tokenList.Count == 0 && productionList.Count == 0)
             {
-                // Lookup the production rule for the non-terminal
-                List<List<string>> production = parsingTable.GetProduction(currentSymbol);
-
-                if (production != null)
-                {
-                    Console.WriteLine($"Using Production for {currentSymbol}: {string.Join(" | ", production[0])}");
-
-                    // Pop the non-terminal from the stack
-                    stack.Pop();
-
-                    // Push the production onto the stack in reverse order
-                    for (int i = production.Count - 1; i >= 0; i--)
-                    {
-                        List<string> productionOption = production[i];
-                        foreach (string symbol in productionOption)
-                        {
-                            stack.Push(symbol);
-                        }
-                    }
-                }
-                else
-                {
-                    // Error: No production rule for the non-terminal
-                    Console.WriteLine($"Error: No production rule for '{currentSymbol}'");
-                    return false;
-                }
+                Console.WriteLine("Parsing successful!");
+                return true;
             }
             else
             {
-                // Error: Invalid symbol
-                Console.WriteLine($"Error: Invalid symbol '{currentSymbol}'");
+                Console.WriteLine("Parsing failed: Lists not empty.");
                 return false;
             }
         }
 
-        // If the stack is empty and all input tokens have been consumed, parsing is successful
-        if (inputIndex == inputTokens.Count)
+        public void SetProductionList(List<string> production)
         {
-            Console.WriteLine("Parsing Successful");
-            return true;
-        }
-        else
-        {
-            // Error: Not all input tokens consumed
-            Console.WriteLine($"Error: Not all input tokens consumed. Expected end of input.");
-            return false;
+            productionList = production;
         }
     }
 }

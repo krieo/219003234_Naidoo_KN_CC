@@ -10,7 +10,7 @@ public class ParsingTable
         productionRules = new Dictionary<string, List<List<string>>>();
         // Initialize the production rules here
         AddProduction("RECIPE", new List<List<string>> { new List<string> { "RECIPE", "ID", "DO", "METHOD_MAIN", "DONE" } });
-        AddProduction("METHOD_MAIN", new List<List<string>> { new List<string> { "METHOD", "MAIN", "LEFTPARENTHESIS", "RIGHTPARENTHESIS", "DO", "STMNT_BLOCK", "DONE" } });
+        AddProduction("METHOD_MAIN", new List<List<string>> { new List<string> { "METHOD", "MAIN", "LEFTPARENTHESIS", "RIGHTPARENTHESIS", "DO", "STMNT_BLOCK", "DONE" } }); //YOU NEED TO UPDATE THE PRODUCTION RULES SO IT MATCHES CHECK WHATSAPP FOR HOW YOU WERE GOING TO DO IT/ THESE ARE ALSO WRONG IT NEEDS AS INTEGER/STRING/BOOLEAN ETC
         AddProduction("STMNT_BLOCK", new List<List<string>> { new List<string> { "STMNT", "STMNT_BLOCK" }, new List<string> { } });
         AddProduction("STMNT", new List<List<string>> { new List<string> { "ASK", "LEFTPARENTHESIS", "ID", "RIGHTPARENTHESIS", "SEMICOLON" } });
         AddProduction("STMNT", new List<List<string>> { new List<string> { "SPEAK", "LEFTPARENTHESIS", "STRINGLIT", "RIGHTPARENTHESIS", "SEMICOLON" } });
