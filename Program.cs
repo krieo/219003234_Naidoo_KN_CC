@@ -78,9 +78,10 @@ class Program
             // Print out the type and lexeme pairs from the tokenized input
             foreach (Token token in tokens)
             {
-               // Console.WriteLine($"Type: {token.Type}, Lexeme: {token.Lexeme}");
+                //Console.WriteLine($"Type: {token.Type}, Lexeme: {token.Lexeme}");
+                Console.WriteLine(token.Lexeme +" = " + token.Type);
                 inputTokens.Add(token.Type);
-                Console.WriteLine(token.Type);
+                //Console.WriteLine(token.Type);
             }
 
             SimpleParser simpleParser = new SimpleParser(inputTokens);
