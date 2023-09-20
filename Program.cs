@@ -79,13 +79,16 @@ class Program
             foreach (Token token in tokens)
             {
                 //Console.WriteLine($"Type: {token.Type}, Lexeme: {token.Lexeme}");
-                // Console.WriteLine(token.Lexeme +" = " + token.Type);
-                Console.WriteLine(token.Type);
+               // Console.WriteLine(token.Lexeme +" = " + token.Type);
+                Console.Write(token.Lexeme + " = " + token.Type + " ");
+                //Console.WriteLine(token.Type);
                 inputTokens.Add(token.Type);
                 //Console.WriteLine(token.Type);
             }
 
-            // Create a parser and pass the list of token types
+            
+
+       /*     // Create a parser and pass the list of token types
             // SimpleParser parser = new SimpleParser(tokens.ConvertAll(token => token.Type));
             SimpleParser parser = new SimpleParser(inputTokens);
 
@@ -103,7 +106,7 @@ class Program
            // ParsingTable parsingTable = new ParsingTable();
            // string formattedRules = parsingTable.GenerateFormattedRules();
           //  Console.WriteLine(formattedRules);
-
+       */
         }
 
 
