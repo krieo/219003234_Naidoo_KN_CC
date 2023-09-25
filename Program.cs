@@ -80,38 +80,15 @@ class Program
             {
                 //Console.WriteLine($"Type: {token.Type}, Lexeme: {token.Lexeme}");
                // Console.WriteLine(token.Lexeme +" = " + token.Type);
-                Console.Write(token.Lexeme + " = " + token.Type + " ");
-                //Console.WriteLine(token.Type);
+               Console.WriteLine(token.Lexeme + " = " + token.Type + " ");
+               // Console.WriteLine(token.Type);
                 inputTokens.Add(token.Type);
                 //Console.WriteLine(token.Type);
             }
 
-            
-
-       /*     // Create a parser and pass the list of token types
-            // SimpleParser parser = new SimpleParser(tokens.ConvertAll(token => token.Type));
-            SimpleParser parser = new SimpleParser(inputTokens);
-
-            // Call the parser and check if parsing was successful
-            bool parsingSuccessful = parser.ParseProgram();
-
-            if (parsingSuccessful)
-            {
-                Console.WriteLine("Parsing was successful. The input follows the grammar.");
-            }
-            else
-            {
-                Console.WriteLine("Parsing failed. The input does not follow the grammar.");
-            }
-           // ParsingTable parsingTable = new ParsingTable();
-           // string formattedRules = parsingTable.GenerateFormattedRules();
-          //  Console.WriteLine(formattedRules);
-       */
         }
 
 
-        // Create an instance of the Parser class and parse the inputTokens
-        //       Parser parser = new Parser(inputTokens, parsingTable);
-        //      parser.Parse();
+       
     }
 }
