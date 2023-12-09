@@ -1,1 +1,1 @@
-# 219003234_Naidoo_KN_CC
+This project only contains the scanner for the compiler
